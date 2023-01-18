@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="game">
+    <select id="list" resultType="Game">
+        SELECT *
+        FROM game
+        <if test="category != null">
+            WHERE ${category} LIKE '%${keywords}%'
+        </if>
+    </select>
+
+    <insert id="add">
+        INSERT INTO game(title, price, contents)
+        VALUES (#{title}, #{price}, #{contents})
+    </insert>
+
+    <delete id="delete">
+        DELETE
+        FROM game
+        WHERE id = #{id}
+    </delete>
+
+    <select id="item" resultType="Game">
+        SELECT *
+        FROM game
+        WHERE id = #{id}
+    </select>
+
+    <update id="update">
+        UPDATE game
+        SET title=#{title},
+            price=#{price},
+            contents=#{contents}
+        WHERE id = #{id}
+    </update>
+</mapper>
